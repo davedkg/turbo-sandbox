@@ -32,6 +32,7 @@ gem 'stimulus-rails', '~> 1.3.3'
 # gem "bcrypt", "~> 3.1.7"
 
 gem 'haml-rails', '~> 2.0'
+gem 'open-weather-ruby-client', '~> 0.4.0'
 gem 'simple_form', '~> 5.3.0'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -45,6 +46,7 @@ group :development, :test do
   gem 'debug', platforms: %i[mri windows]
 
   gem 'factory_bot', '~> 6.4.5'
+  gem 'pry-byebug', '~> 3.10.1'
   gem 'rspec-rails', '~> 6.1.0'
 end
 

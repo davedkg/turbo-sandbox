@@ -1,0 +1,14 @@
+= turbo_frame_tag "forecast-form" do
+  .card.mb-4
+    .card-body
+      %h5.card-title Hotwire Weather Forecast
+
+      = simple_form_for(forecast, data: { controller: "forecast-form", action: "google-maps-initialized@window->forecast-form#initAddressAutocomplete" }) do |f|
+        = f.error_notification
+        = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+        = f.input :zip_code, as: :hidden, input_html: { data: { "forecast-form-target" => "zipCode" } }
+        = f.input :country, as: :hidden, input_html: { data: { "forecast-form-target" => "country" } }
+        = f.input :address, label: false, input_html: { data: { "forecast-form-target" => "address" } }
+
+        = f.button :submit, "Show Temperature", { data: { "forecast-form-target" => "submitButton" }, disabled: true }

@@ -1,0 +1,22 @@
+= turbo_frame_tag "forecast" do
+  .card
+    .card-body
+      - if forecast
+        %h5.card-title Temperature
+        %h6.card-subtitle.mb-2.text-body-secondary= forecast.address
+        %ul.list-group
+          %li.list-group-item.d-flex.justify-content-between.align-items-center
+            Current
+            .badge.bg-secondary.rounded-pill
+              = format_temperature(forecast.temperature_current)
+          %li.list-group-item.d-flex.justify-content-between.align-items-center
+            High
+            .badge.bg-secondary.rounded-pill
+              = format_temperature(forecast.temperature_max)
+          %li.list-group-item.d-flex.justify-content-between.align-items-center
+            Low
+            .badge.bg-secondary.rounded-pill
+              = format_temperature(forecast.temperature_min)
+      - else
+        %p.card-text.text-center
+          forecast will display here

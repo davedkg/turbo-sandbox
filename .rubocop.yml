@@ -7,5 +7,14 @@ AllCops:
   TargetRubyVersion: 3.2
   NewCops: enable
 
+Layout/LineLength:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+RSpec/AnyInstance:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false

@@ -14,5 +14,5 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 
 Rails.application.config.assets.paths += [
-  Rails.root.join('vendor', 'assets').to_s
+  Rails.root.join('vendor/assets').to_s
 ]
