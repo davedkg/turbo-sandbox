@@ -17,6 +17,9 @@
             Low
             .badge.bg-secondary.rounded-pill
               = format_temperature(forecast.temperature_min)
+          - if forecast.cached?
+            .alert.alert-info.mt-4
+              * displaying cached results
       - else
         %p.card-text.text-center
           forecast will display here
