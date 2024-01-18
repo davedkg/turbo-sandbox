@@ -11,6 +11,7 @@ class Forecast
   validates :address, presence: true
   # if address isn't present, we will assume so is the zip_code and country
   validates :zip_code, :country, presence: true, if: -> { errors.empty? }
+  # if address, zip_code and country aren't present, no need to try to populate forecast
   validate :populate_current_forecast, if: -> { errors.empty? }
 
   def cached?
@@ -22,15 +23,13 @@ class Forecast
 
     @cached = !current_forecast.nil? # see cached?
 
-    current_forecast ||= fetch_new_forecast
+    current_forecast ||= fetch_new_forecast_and_cache
 
-    errors.add(:address, 'has no forecast') unless current_forecast
+    errors.add(:address, 'has no available forecast') unless current_forecast
 
-    forecast_temperature = current_forecast[:temperature]
-
-    @temperature_current = forecast_temperature[:current]
-    @temperature_max = forecast_temperature[:high]
-    @temperature_min = forecast_temperature[:low]
+    @temperature_current = current_forecast[:temperature][:current]
+    @temperature_max     = current_forecast[:temperature][:high]
+    @temperature_min     = current_forecast[:temperature][:low]
   end
 
   private
@@ -41,7 +40,7 @@ class Forecast
     response&.symbolize_keys
   end
 
-  def fetch_new_forecast
+  def fetch_new_forecast_and_cache
     response = service.forecast_by_zipcode_and_country(zip_code, country)
 
     Rails.cache.write(cache_key, response, expires_in: CACHE_EXPIRES_IN)
